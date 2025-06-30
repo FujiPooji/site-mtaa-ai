@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="site.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="tabs">
+            <div id="verticalline"></div>
+            <div id="newchat"> <button>New Chat</button> </div>
+            <div id="searchchat"> <button>Search Chat</button> </div>
+            <div id="library"> <button>Library</button> </div>
+            <div>Chats</div>
+            <div class="chat">
+                <ol class="actualchats">
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="chat-messages" id="chatMessages"></div>
+        <form class="chat-input-area" id="chatForm" autocomplete="off">
+            <input type="text" id="chatInput" placeholder="Type your message..." required />
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <script src="site.js"></script>
+</body>
+</html>
