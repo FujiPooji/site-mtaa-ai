@@ -1,6 +1,6 @@
 async function fetchGeminiResponse(userMessage) {
-    const apiKey = "AIzaSyC_Slcv8saSu5zG_O46g8dZezQG4H_933c"; // Replace with your Gemini API key
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+    const apiKey = "AIzaSyC_Slcv8saSu5zG_O46g8dZezQG4H_933c";
+    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
     const body = {
         contents: [
             { parts: [{ text: userMessage }] }
@@ -18,6 +18,7 @@ async function fetchGeminiResponse(userMessage) {
         return data.error?.message || "nope";
     }
 }
+
 const chatForm = document.getElementById('chatForm');
 const chatInput = document.getElementById('chatInput');
 const chatMessages = document.getElementById('chatMessages');
@@ -35,18 +36,25 @@ chatForm.addEventListener('submit', function(e) {
         });
     }
 });
+function parseMessageStyles(text) {
+    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Italic: *text*
+    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    // Inline code: `text`
+    text = text.replace(/`(.*?)`/g, '<code>$1</code>');
+    return text;
+}
 
 function appendMessage(sender, text) {
     const msgDiv = document.createElement('div');
     msgDiv.className = 'message ' + sender;
     const contentDiv = document.createElement('div');
     contentDiv.className = 'message-content';
-    contentDiv.textContent = text;
+    contentDiv.innerHTML = parseMessageStyles(text); // Use innerHTML for styled text
     msgDiv.appendChild(contentDiv);
     chatMessages.appendChild(msgDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
-
 function onnewChat() {
     chatMessages.innerHTML = '';
 }
@@ -68,7 +76,6 @@ function addnewchattolist(chatName, chatdata) {
     chatList.appendChild(chatItem);
 }
 
-// Add event listener for "New Chat" button
 document.addEventListener('DOMContentLoaded', function() {
     const newChatBtn = document.querySelector('#newchat button');
     if (newChatBtn) {
